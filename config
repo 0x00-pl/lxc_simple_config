@@ -1,0 +1,31 @@
+
+# Template used to create this container: /usr/share/lxc/templates/lxc-debian
+# Parameters passed to the template:
+# Template script checksum (SHA-1): 2ad4d9cfe8988ae453172bd4fe3b06cf91756168
+# For additional config options, please look at lxc.container.conf(5)
+
+# Uncomment the following line to support nesting containers:
+#lxc.include = /usr/share/lxc/config/nesting.conf
+# (Be aware this has security implications)
+
+lxc.network.type = veth
+lxc.network.link = lxcbr0
+lxc.network.flags = up
+#lxc.network.name = eth0
+lxc.network.ipv4 = 10.0.3.2
+lxc.network.ipv4.gateway = 10.0.3.1
+
+lxc.hook.pre-start = /var/lib/lxc/net_ass/pre-start.sh 10.0.3.2 80
+lxc.hook.post-stop = /var/lib/lxc/net_ass/post-stop.sh 10.0.3.2 80
+
+
+lxc.rootfs = /var/lib/lxc/net_ass/rootfs
+lxc.rootfs.backend = dir
+
+# Common configuration
+lxc.include = /usr/share/lxc/config/debian.common.conf
+
+# Container specific configuration
+lxc.tty = 4
+lxc.utsname = net_ass
+lxc.arch = amd64
