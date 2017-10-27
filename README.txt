@@ -21,3 +21,17 @@ for more in cgroup:
   https://wiki.archlinux.org/index.php/Cgroups
   https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/resource_management_guide/ch01
 
+export and import:
+  # lxc-stop -n $NAME
+  # cd /var/lib/lxc/$NAME/
+  # tar --numeric-owner -czvf container_fs.tar.gz ./*
+
+  copying to new machine
+  # rsync -avh container_fs.tar.gz user@newserver:/var/lib/lxc/
+
+  on new machine
+  # mkdir /var/lib/lxc/$NAME/
+  # cd /var/lib/lxc/$NAME/
+  # tar --numeric-owner -xzvf container_fs.tar.gz .
+
+  https://stackoverflow.com/questions/23427129/how-do-i-backup-move-lxc-containers
